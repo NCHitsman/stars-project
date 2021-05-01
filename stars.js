@@ -30,9 +30,7 @@ function createStar() {
 
     let ran = Math.random()
     if (ran > 0.98) {
-        let ran = Math.round(Math.random());
-        let colors = [0xFFF8C2, 0x5154F5];
-        color = colors[ran]
+        color = 0xFFF8C2;
         size = 10;
     } else {
         let ran = Math.round(Math.random() * 4);
