@@ -14,7 +14,7 @@ camera.position.z = 150;
 new OrbitControls(camera, canvas)
 
 const axesHelper = new THREE.AxesHelper(150);
-scene.add(axesHelper);
+// scene.add(axesHelper);
 
 //------------------------------------------------------------------------------
 let starCount = 0;
