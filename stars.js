@@ -9,66 +9,86 @@ const scene = new THREE.Scene();
 
 //------------------------------------------------------------------------------
 
-const camera = new THREE.PerspectiveCamera(75, 2, 0.1, 10000);
-camera.position.z = 150;
+const camera = new THREE.PerspectiveCamera(75, 2, 0.1, 100000);
+camera.position.z = 1;
 new OrbitControls(camera, canvas)
 
-// const axesHelper = new THREE.AxesHelper(150);
-// scene.add(axesHelper);
+const axesHelper = new THREE.AxesHelper(150);
+scene.add(axesHelper);
 
 //------------------------------------------------------------------------------
 let starCount = 0;
 
 function createStar() {
 
-    if (starCount > 2000) {
+    if (starCount > 2500) {
         return;
     }
 
     let color;
     let size;
+    let maxSize;
 
     let ran = Math.random()
-    if (ran > 0.98) {
+    if (ran > 0.99) {
         color = 0xFFF8C2;
         size = 10;
+        maxSize = 750;
     } else {
         let ran = Math.round(Math.random() * 4);
         let colors = [0x91171F, 0xA3C3D9, 0x5C6D70, 0xDDCECD, 0x311847]
         color = colors[ran]
-        size = (Math.random() * 2) + 1
+        size = (Math.random() * 2) + 100
+        maxSize = 1000;
     }
 
     let starGeo = new THREE.SphereGeometry(size, 32, 32);
     let starMat = new THREE.MeshBasicMaterial({ color });
     let star = new THREE.Mesh(starGeo, starMat);
 
-    let randX = Math.random() * 1000;
+
+    const spriteMat = new THREE.SpriteMaterial({
+        map: new THREE.TextureLoader('stars/glow.png'),
+		color: 0x0000ff,
+    })
+    const sprite = new THREE.Sprite(spriteMat);
+    console.log(sprite)
+
+
+    let randX = Math.random() * maxSize;
     let randXtwo = Math.random();
     if (randXtwo > .5) {
         star.position.x = randX;
+        sprite.position.x = 0;
     } else {
         star.position.x = -(randX);
+        sprite.position.x = 0;
     }
 
-    let randY = Math.random() * 1000;
+    let randY = Math.random() * maxSize;
     let randYtwo = Math.random();
     if (randYtwo > .5) {
         star.position.y = randY;
+        sprite.position.y = 0;
     } else {
         star.position.y = -(randY);
+        sprite.position.y = 0;
     }
 
-    let randZ = Math.random() * 1000;
+    let randZ = Math.random() * maxSize;
     let randZtwo = Math.random();
     if (randZtwo > .5) {
         star.position.z = randZ;
+        sprite.position.z = 0;
     } else {
         star.position.z = -(randZ);
+        sprite.position.z = 0;
     }
 
-    starCount++;
 
+
+    starCount++;
+    console.log('ran')
     scene.add(star)
 }
 
@@ -85,4 +105,5 @@ function render(time) {
     requestAnimationFrame(render)
 }
 requestAnimationFrame(render)
-setInterval(() => { createStar() }, 1)
+// setInterval(() => { createStar() }, 1)
+createStar()
